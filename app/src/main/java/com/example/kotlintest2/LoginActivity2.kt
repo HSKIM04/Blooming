@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
@@ -13,6 +14,7 @@ class LoginActivity : AppCompatActivity() {
     private lateinit var emailEditText: EditText
     private lateinit var passwordEditText: EditText
     private lateinit var loginButton: Button
+    private lateinit var signupText: TextView
 
     companion object {
         private const val PREFS_NAME = "QcumbeRPrefs"
@@ -35,6 +37,7 @@ class LoginActivity : AppCompatActivity() {
         emailEditText = findViewById(R.id.emailEditText)
         passwordEditText = findViewById(R.id.passwordEditText)
         loginButton = findViewById(R.id.loginButton)
+        signupText = findViewById(R.id.signupText)
 
         // 로그인 버튼 클릭 리스너
         loginButton.setOnClickListener {
@@ -54,6 +57,12 @@ class LoginActivity : AppCompatActivity() {
 
             // 로그인 수행
             performLogin(email, password)
+        }
+
+        // 회원가입 화면으로 이동
+        signupText.setOnClickListener {
+            val intent = Intent(this, SignUpActivity::class.java)
+            startActivity(intent)
         }
     }
 

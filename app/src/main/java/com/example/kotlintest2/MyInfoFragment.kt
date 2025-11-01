@@ -17,6 +17,7 @@ class MyInfoFragment : Fragment() {
     private lateinit var nameTextView: TextView
     private lateinit var myInfoButton: LinearLayout
     private lateinit var logoutButton: LinearLayout
+    private lateinit var viewHistoryButton: LinearLayout
 
     companion object {
         private const val PREFS_NAME = "QcumbeRPrefs"
@@ -39,12 +40,19 @@ class MyInfoFragment : Fragment() {
         nameTextView = view.findViewById(R.id.nameTextView)
         myInfoButton = view.findViewById(R.id.myInfoButton)
         logoutButton = view.findViewById(R.id.logoutButton)
+        viewHistoryButton = view.findViewById(R.id.viewHistoryButton)
+
 
         loadUserInfo()
 
         // 내 정보 확인 버튼
         myInfoButton.setOnClickListener {
             Toast.makeText(context, "내 정보 확인 기능 (추후 구현)", Toast.LENGTH_SHORT).show()
+        }
+
+        viewHistoryButton.setOnClickListener {
+            val intent = Intent(requireContext(), HistoryActivity::class.java)
+            startActivity(intent)
         }
 
         // 로그아웃 버튼

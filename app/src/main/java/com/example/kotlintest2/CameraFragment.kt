@@ -2,7 +2,9 @@ package com.example.kotlintest2
 
 import android.Manifest
 import android.content.ContentValues
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.MediaStore
@@ -55,6 +57,18 @@ class CameraFragment : Fragment() {
                 startCamera()
             }
         }
+
+    private fun navigateToResultPage(imageUri: Uri) {
+        val intent = Intent(requireActivity(), ResultActivity::class.java)
+        intent.putExtra("imageUri", imageUri.toString())
+
+        // TODO: 추후 AI 모델 결과로 대체
+        // 임시 더미 데이터
+        intent.putExtra("diseaseName", "노균병")
+        intent.putExtra("confidence", 92)
+
+        startActivity(intent)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -154,6 +168,11 @@ class CameraFragment : Fragment() {
                 override fun onImageSaved(output: ImageCapture.OutputFileResults) {
                     Toast.makeText(context, "사진 촬영 완료!", Toast.LENGTH_SHORT).show()
                     Log.d(TAG, "사진이 저장되었습니다: ${output.savedUri}")
+
+                    // 결과 페이지로 이동
+                    output.savedUri?.let { uri ->
+                        navigateToResultPage(uri)
+                    }
                 }
             }
         )
